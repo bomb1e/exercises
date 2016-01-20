@@ -1,0 +1,100 @@
+<html lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Simple Chat </title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .card-container.card {
+        max-width: 350px;
+        padding: 40px 40px;
+    }
+    .card {
+        width: 700px;
+        background-color: #070707;
+        /* just in case there no content*/
+        padding: 20px 25px 30px;
+        margin: 0 auto 25px;
+        margin-top: 20px;
+        /* shadows and rounded borders */
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+    .chat-box{
+      margin: 5px;
+      background: #F7F7F7;
+      width: 100%;
+      height: 500px;
+    }
+    .chat-input{
+      margin: 5px;
+      background: #F7F7F7;
+      height: 50px;
+      width: 70%;
+      display: inline-block;
+    }
+    .btn-send {
+      height: 50px;
+      width: 20%;
+      display: inline-block;
+    }
+    .username-modal{
+      height: 200px;
+      width: 200px;
+      background-color: #070707;
+      display: none;
+    }
+    </style>
+    <body>
+      <div class="container">
+        <div id="username-modal" class="username-modal">
+          <input type="text" id="username" required>
+          <button class="btn btn-success btn-username">Save</button>
+        </div>
+        <div class="card-container">
+          <div class="card">
+            <div class="chat-box">
+              <table id="chat-box">
+              </table>
+            </div>
+            <input type="text" class="chat-input"/>
+            <button class="btn btn-success btn-send">Send</button>
+          </div>
+        </div>
+      </div>
+    </body>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://raw.githubusercontent.com/julien-maurel/jQuery-Storage-API/master/jquery.storageapi.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var username;
+        var storage = $.localStorage;
+        if(storage.isSet('username')){
+          username = storage.get('username');
+          console.log(username);
+        }
+        else {
+          console.log("nope");
+          getUsername();
+        }
+        $('.btn-send').click(function(){
+          if ($('.chat-input').val()) {
+            console.log($('.chat-input').val());
+            var chatText = "<tr><td>"+ $('.chat-input').val()+"</td></tr>";
+            $(chatText).appendTo("#chat-box");
+          }
+        })
+        function getUsername(){
+          $('#username-modal').slideDown();
+          $('.btn-username').click(function(){
+            storage.set('username',$('#username').val());
+            $('#username-modal').slideUp();
+          })
+        }
+      })
+    </script>
+</html>
