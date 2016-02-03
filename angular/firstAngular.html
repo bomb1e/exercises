@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js" charset="utf-8"></script>
+    <title></title>
+  </head>
+  <body>
+    <!-- <div ng-app="" ng-init="names = ['Nyawira','Nyaguthii', 'Eric']; myCol={'background-color': 'black', 'color': 'white'}">
+      <input type="text" name="query" ng-model="query">
+      <input type="text" name="color" ng-model="myCol.color">
+      <input type="text" name="bg-color" ng-model="myCol.background-color">
+
+      <p ng-repeat="name in names | filter:query" ng-style=myCol>{{name}}</p>
+    </div> -->
+    <!-- <div class="abc" ng-app="myApp" ng-controller="myCtrl">
+      <input type="text" name="firstName" ng-model="firstName">
+      <input type="text" name="secondName" ng-model="secondName">
+      <p>{{firstName + " " + secondName}}</p>
+    </div>
+    <script type="text/javascript">
+      var app = angular.module("myApp", []);
+      app.controller("myCtrl", function($scope){
+        $scope.firstName = "firstName";
+        $scope.secondName = "secondName";
+      });
+    </script> -->
+
+
+      <div ng-app="myApp" ng-controller="myCtrl">
+        <label>Enter name: <input type="text" ng-model="name"></label>
+        <span ng-bind="name"></span>
+        <p ng-model="address"></p>
+        <p class="classDirective"></p>
+        <input type="text" name="color" ng-model="col" placeholder="color">
+        <input type="text" name="number" ng-model="num" placeholder="number">
+        <input type="button" name="name" value="save" ng-click="save(num,col)">
+        <ul>
+          <li ng-repeat="n in number track by $index" ng-if="colour[$index] != null">{{colour[$index] + " - " + n}}</li>
+        </ul>
+      </div>
+
+      <script type="text/javascript">
+        var app = angular.module("myApp", [])
+
+        app.controller("myCtrl", function ($scope) {
+          $scope.colour = []
+          $scope.number = []
+          $scope.address = "20 Aluguntuguntu"
+          $scope.save = function(num, col){
+            if(col) $scope.colour.push(col)
+            if(num) $scope.number.push(num)
+            $scope.col = null
+            $scope.num = null
+            console.log($scope.colour + " " + $scope.number)
+          }
+        }).directive("classDirective", function(){
+          return {
+            restrict: 'C',
+            template: '<p> 2016B! </p>'
+          }
+        })
+      </script>
+  </body>
+</html>

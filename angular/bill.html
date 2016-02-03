@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bill</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js" charset="utf-8"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
+    <style media="screen">
+    button{
+      display: inline-block;
+      margin-bottom: 0; // For input.btn
+      text-align: center;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #E35885;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 2px 2px 2px #888888;
+    }
+    button.on{
+      background-color: #8EC16D;
+    }
+    .menu {
+      margin-top: 30px;
+      background-color: #61A1BC;
+      width: 400px;
+      padding: 50px;
+      color: white;
+      text-align: center;
+      font-family: 'Alegreya Sans', sans-serif;
+      border-radius: 5px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row col-md-6 col-md-offset-3">
+        <div class="menu" ng-app="bill" ng-controller="billCtrl">
+          <h1 style="top: 10px;">Bill</h1>
+          <h4 ng-repeat="i in list"><button type="button" ng-click="toggle()" ng-class="{on:i.state}"><span style="float: left">{{i.item}}</span><span style="float: right">{{i.price | currency : 'GHS ' : fractionSize}}</span></button></h4>
+          <hr style="width: 300px;">
+          <h2 style="width: 300px; "><span>Total:</span> <span style="float: right" ng-bind="total | currency : 'GHS ' : fractionSize"></span></h2>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    var app = angular.module("bill", []);
+    app.controller("billCtrl", function($scope){
+      $scope.total = 0
+      $scope.list = {
+        1: { item: 'Dinner', price: '500', state: false },
+        2: { item: 'Sobolo', price: '3', state: false },
+        3: { item: 'Dessert', price: '200', state: false },
+        4: { item: 'Champagne', price: '400', state: false }
+      }
+      $scope.toggle = function (){
+        if(this.i.state) $scope.total -= Number(this.i.price)
+        else if(!this.i.state) $scope.total += Number(this.i.price)
+        this.i.state = !this.i.state
+      }
+    })
+  </script>
+</html>

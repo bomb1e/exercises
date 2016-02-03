@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Date Play </title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+    html,body{
+      font-family: 'Alegreya Sans', sans-serif;
+    }
+    .row{
+      font-size: 1.5em
+    }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+    <div id="pascal" style="position: absolute; right: 10px; top: 10px;">
+    </div>
+    <div id="time" style="font-size: 2em;">
+    </div>
+    <div id = "day-month-season">
+    </div>
+    <button onclick="checkTime(new Date())">Change Time</button>
+  </div>
+</body>
+<script type="text/javascript">
+  (function(){
+    var date = new Date()
+    checkTime(date)
+    checkDay(date)
+    print('day-month-season', " " + dayormonthToString(date.getMonth(), 1) + " Winter")
+    for (var i = 0; i < pasc(10).length; i++) print('pascal', pasc(10)[i]+"<br>")
+  })();
+
+  function checkTime(date){
+    document.getElementById('time').innerHTML = ''
+    if((isFibonacci(date.getHours()))||(isFibonacci(date.getMinutes()))||(isFibonacci(date.getSeconds()))) {print('time', date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ' fibonacci')}
+    else {print('time', date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds())}
+  }
+  function pasc(n){
+  var result = [1,[1,1]];
+  for (var row = 2; row < n; row++){
+      result[row] = [1];
+      for (var col = 1; col <= row - 1; col++){
+          result[row][col] = result[row-1][col] + result[row-1][col-1];
+          result[row].push(1);
+      }
+  }
+  return result;
+  }
+
+  function checkDay(date){
+    switch (date.getDay()) {
+      case 4||5||6:
+        print('day-month-season', "PARTY DAY")
+        break;
+      case 1||2||3:
+        print('day-month-season', date.getDay())
+        break;
+      default:
+    }
+  }
+
+  function print(id, content){
+    document.getElementById(id).innerHTML += content
+  }
+
+  function dayormonthToString(val, month){
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    if(month) return monthNames[val]
+    return dayNames[val]
+  }
+
+  function isFibonacci(val){
+    var fibonacci = [0, 1]
+    for(i=2; i<=10; i++) fibonacci[i] = fibonacci[i-2] + fibonacci[i-1]
+    for(i in fibonacci) if(val === fibonacci[i]) return true
+    return false
+  }
+</script>
+</html>
