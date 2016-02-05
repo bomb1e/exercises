@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js" charset="utf-8"></script>
+  <title>Second Angular</title>
+</head>
+
+<body>
+  <div ng-app="myApp" ng-controller="myCtrl">
+    Search:
+    <input type="text" ng-model='search'>
+    <li ng-repeat="x in names | filter: search">{{x}}</li>
+
+    <table>
+      <tr>
+        <th ng-click="orderxyz('name')">
+          Name:
+        </th>
+        <th ng-click="orderxyz('country')">
+          Country:
+        </th>
+      </tr>
+      <tr ng-repeat=" x in names | orderBy:order">
+        <td>
+          {{x.name}}
+        </td>
+        <td>
+          {{x.country}}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+<script type="text/javascript">
+  var app = angular.module("myApp", [])
+  app.controller("myCtrl", function($scope) {
+    // $scope.names = [{
+    //   name: 'Alex',
+    //   country: 'USA'
+    // }, {
+    //   name: 'Ashwin',
+    //   country: 'India'
+    // }, {
+    //   name: 'Fred',
+    //   country: 'Sweden'
+    // }, {
+    //   name: 'Yaw',
+    //   country: 'Ghana'
+    // }, {
+    //   name: 'Emily',
+    //   country: 'Lebanon'
+    // }, {
+    //   name: 'Kate',
+    //   country: 'Kenya'
+    // }, {
+    //   name: 'Amanze',
+    //   country: 'Nigeria'
+    // }]
+    $scope.orderxyz = function(order) {
+      $scope.order = order
+    }
+
+    var data = null;
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener("readystatechange", function () {
+     if (this.readyState === 4) {
+       $scope.names = JSON.parse(this.responseText);
+      //  console.log(this.responseText);
+       console.log($scope.names.tasks[1]);
+     }
+    });
+    xhr.open("GET", "http://4c1b070d.ngrok.io/me");
+    xhr.send(data);
+  })
+
+</script>
+
+</html>
